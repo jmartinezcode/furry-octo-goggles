@@ -6,21 +6,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using tmc.Models;
+using tmc.Contracts;
 
 namespace tmc.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMovieServices _movieService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMovieServices movieService)
         {
             _logger = logger;
+            _movieService = movieService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var popularMovies = await _movieService.GetPopularMovie();
+            var topMovies = await _movieService.GetTopRatedMovie();
+            var nowPlayingMovies = await _movieService.GetNowPlayingMovie();
+            var upcomingMovies = await _movieService.GetUpcomingMovie();
+            return View(popularMovies);
         }
 
         public IActionResult Privacy()

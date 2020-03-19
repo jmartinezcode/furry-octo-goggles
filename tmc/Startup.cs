@@ -12,6 +12,8 @@ using tmc.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using tmc.Contracts;
+using tmc.Services;
 
 namespace tmc
 {
@@ -37,6 +39,8 @@ namespace tmc
                 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddTransient<IMovieServices, MovieService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
