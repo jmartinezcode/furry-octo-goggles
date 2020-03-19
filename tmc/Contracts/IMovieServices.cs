@@ -8,9 +8,9 @@ namespace tmc.Contracts
 {
     public interface IMovieServices
     {
-        Task<Movie> GetPopularMovie();
-        Task<Movie> GetTopRatedMovie();
-        Task<Movie> GetNowPlayingMovie();
-        Task<Movie> GetUpcomingMovie();
+        Task<PopularMovie> GetPopularMovie();
+        Task<TopRatedMovie> GetTopRatedMovie();
+        Task<NowPlayingMovie> GetNowPlayingMovie();
+        Task<UpcomingMovie> GetUpcomingMovie();
     }
 }
