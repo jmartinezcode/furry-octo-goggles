@@ -12,7 +12,9 @@ namespace tmc.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [Required]
+        [Display(Name="Profile Name")]
+        public string ProfileName { get; set; }
         [Required]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }

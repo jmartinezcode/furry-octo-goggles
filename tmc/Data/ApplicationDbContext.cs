@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using tmc.Models;
 
 namespace tmc.Data
 {
@@ -14,18 +15,10 @@ namespace tmc.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.Entity<IdentityRole>()
-                .HasData(
-                    new IdentityRole
-                    {
-                        Name = "User",
-                        NormalizedName = "USER"
-                    }
-                );
-        }
+        public DbSet<User> SiteUsers { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Watchlist> Watchlists { get; set; }
+        public DbSet<MovieRating> MovieRatings { get; set; }
+        public DbSet<Genre> Genres { get; set; }
     }
 }
