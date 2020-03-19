@@ -7,5 +7,6 @@ namespace tmc.Models
 {
     public class Watchlist
     {
+
     }
 }

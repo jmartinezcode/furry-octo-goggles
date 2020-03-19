@@ -12,8 +12,9 @@ namespace tmc.Models
         [ForeignKey("IdentityUser")]
         public string UserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
-
+        [ForeignKey("MovieId")]
         public int MovieId { get; set; }
+        public Movie Movie { get; set; }
 
         public int Rating { get; set; }
     }
