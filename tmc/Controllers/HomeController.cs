@@ -27,7 +27,7 @@ namespace tmc.Controllers
             var topMovies = await _movieService.GetTopRatedMovie();
             var nowPlayingMovies = await _movieService.GetNowPlayingMovie();
             var upcomingMovies = await _movieService.GetUpcomingMovie();
-            return View(popularMovies);
+            return View();
         }
 
         public IActionResult Privacy()
