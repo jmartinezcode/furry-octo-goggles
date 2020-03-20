@@ -1,8 +1,132 @@
-﻿@{
+﻿@model tmc.Models.MovieViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <h4>Popular Movies</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Runtime
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var movie in Model.PopularMovie.results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.runtime)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@movie.id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4>Top Rated Movies</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Runtime
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var movie in Model.TopRatedMovie.results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.runtime)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@movie.id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4>Now Playing</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Runtime
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var movie in Model.NowPlayingMovie.results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.runtime)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@movie.id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4>Upcoming Movie</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Runtime
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var movie in Model.UpcomingMovie.results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => movie.runtime)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@movie.id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>

@@ -23,11 +23,19 @@ namespace tmc.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var viewModel = new MovieViewModel();
+
             var popularMovies = await _movieService.GetPopularMovie();
             var topMovies = await _movieService.GetTopRatedMovie();
             var nowPlayingMovies = await _movieService.GetNowPlayingMovie();
             var upcomingMovies = await _movieService.GetUpcomingMovie();
-            return View();
+
+            viewModel.PopularMovie = popularMovies;
+            viewModel.TopRatedMovie = topMovies;
+            viewModel.NowPlayingMovie = nowPlayingMovies;
+            viewModel.UpcomingMovie = upcomingMovies;
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

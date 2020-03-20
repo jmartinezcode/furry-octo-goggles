@@ -4,15 +4,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tmc.Models;
+using tmc.Data;
+using tmc.Contracts;
+using System.Security.Claims;
 
 namespace tmc.Controllers
 {
     public class UsersController : Controller
     {
-        // GET: Users
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+        private readonly IMovieServices _movieService;
+        public UsersController(ApplicationDbContext context, IMovieServices services)
         {
-            return View();
+            _context = context;
+            _movieService = services;
+        }
+        // GET: Users
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new MovieViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = _context.SiteUsers.FirstOrDefault(u => u.UserId == userId);
+            if (user is null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            viewModel.User = user;
+
+            var popularMovies = await _movieService.GetPopularMovie();
+            var topMovies = await _movieService.GetTopRatedMovie();
+            var nowPlayingMovies = await _movieService.GetNowPlayingMovie();
+            var upcomingMovies = await _movieService.GetUpcomingMovie();
+
+            viewModel.PopularMovie = popularMovies;
+            viewModel.TopRatedMovie = topMovies;
+            viewModel.NowPlayingMovie = nowPlayingMovies;
+            viewModel.UpcomingMovie = upcomingMovies;
+
+            return View(viewModel);
         }
         public async Task<IActionResult> Search(string query)
         {
