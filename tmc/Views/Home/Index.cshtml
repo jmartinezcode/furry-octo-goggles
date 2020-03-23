@@ -4,150 +4,150 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>
 
-    <h4>Popular Movies</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Runtime
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @foreach (var movie in Model.PopularMovie.results)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.runtime)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@movie.id">Details</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <h4>Top Rated Movies</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Runtime
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @foreach (var movie in Model.TopRatedMovie.results)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.runtime)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@movie.id">Details</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <h4>Now Playing</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Runtime
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @foreach (var movie in Model.NowPlayingMovie.results)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.runtime)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@movie.id">Details</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <h4>Upcoming Movie</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Runtime
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @foreach (var movie in Model.UpcomingMovie.results)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => movie.runtime)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@movie.id">Details</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    
-    <h4>Upcoming</h4>
-    <div class="scrolling-wrapper-flexbox">
-        @foreach(var movie in Model.UpcomingMovie.results)
-        {
-            <div class="card card-img">
-                @if (movie.poster_path == null)
+<h4>Upcoming</h4>
+<div class="movie-container" id="upcoming">
+    <div class="movie-section clearfix">
+        <ul id="movies">
+            <div class="list-row">
+                @foreach (var movie in Model.UpcomingMovie.results)
                 {
-                    <img src="~/img/no-image.jpg" />
-                } else
-                {
-                    var img_path = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-                    <img src="@img_path" />
-
-                }                        
+                    <a class="movie" href="@movie.id">
+                        <div class="movie-img">
+                            @if (movie.poster_path == null)
+                            {
+                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                            }
+                            else
+                            {
+                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                <img class="movie-img" alt="img" src="@img_path" />
+                            }
+                        </div>
+                        <div class="img-overlay">
+                            <div class="movie-text-container">
+                                <h5 class="movie-text-title">
+                                    @movie.title
+                                </h5>
+                                <div>
+                                    <p class="movie-description">@movie.overview</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
             </div>
-            @*<div class="card card-body">@movie.title</div>*@
-        }
+        </ul>
     </div>
-            
+</div>
+
+<h4>Popular</h4>
+<div class="movie-container" id="popular">
+    <div class="movie-section clearfix">
+        <ul id="movies">
+            <div class="list-row">
+                @foreach (var movie in Model.PopularMovie.results)
+                {
+                    <a class="movie" href="@movie.id">
+                        <div class="movie-img">
+                            @if (movie.poster_path == null)
+                            {
+                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                            }
+                            else
+                            {
+                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                <img class="movie-img" alt="img" src="@img_path" />
+                            }
+                        </div>
+                        <div class="img-overlay">
+                            <div class="movie-text-container">
+                                <h5 class="movie-text-title">
+                                    @movie.title
+                                </h5>
+                                <div>
+                                    <p class="movie-description">@movie.overview</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </ul>
+    </div>
+</div>
+
+<h4>Top Rated</h4>
+<div class="movie-container" id="top-rated">
+    <div class="movie-section clearfix">
+        <ul id="movies">
+            <div class="list-row">
+                @foreach (var movie in Model.TopRatedMovie.results)
+                {
+                    <a class="movie" href="@movie.id">
+                        <div class="movie-img">
+                            @if (movie.poster_path == null)
+                            {
+                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                            }
+                            else
+                            {
+                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                <img class="movie-img" alt="img" src="@img_path" />
+                            }
+                        </div>
+                        <div class="img-overlay">
+                            <div class="movie-text-container">
+                                <h5 class="movie-text-title">
+                                    @movie.title
+                                </h5>
+                                <div>
+                                    <p class="movie-description">@movie.overview</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </ul>
+    </div>
+</div>
+
+<h4>Now Playing</h4>
+<div class="movie-container" id="now-playing">
+    <div class="movie-section clearfix">
+        <ul id="movies">
+            <div class="list-row">
+                @foreach (var movie in Model.NowPlayingMovie.results)
+                {
+                    <a class="movie" href="@movie.id">
+                        <div class="movie-img">
+                            @if (movie.poster_path == null)
+                            {
+                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                            }
+                            else
+                            {
+                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                <img class="movie-img" alt="img" src="@img_path" />
+                            }
+                        </div>
+                        <div class="img-overlay">
+                            <div class="movie-text-container">
+                                <h5 class="movie-text-title">
+                                    @movie.title
+                                </h5>
+                                <div>
+                                    <p class="movie-description">@movie.overview</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </ul>
+    </div>
+</div>
+
+
 
