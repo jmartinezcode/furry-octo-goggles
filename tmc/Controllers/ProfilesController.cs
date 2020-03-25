@@ -100,18 +100,19 @@ namespace tmc.Controllers
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(Profile profile)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                var newProfile = new Profile();
+                newProfile.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                newProfile.FullName = profile.FullName;
+                newProfile.ProfileName = profile.ProfileName;
+                _context.Add(newProfile);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Users/Edit/5
