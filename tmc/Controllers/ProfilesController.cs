@@ -11,11 +11,11 @@ using System.Security.Claims;
 
 namespace tmc.Controllers
 {
-    public class UsersController : Controller
+    public class ProfilesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IMovieServices _movieService;
-        public UsersController(ApplicationDbContext context, IMovieServices services)
+        public ProfilesController(ApplicationDbContext context, IMovieServices services)
         {
             _context = context;
             _movieService = services;
@@ -31,7 +31,7 @@ namespace tmc.Controllers
             {
                 return RedirectToAction(nameof(Create));
             }
-            viewModel.User = user;
+            viewModel.Profile = user;
 
             var popularMovies = await _movieService.GetPopularMovie();
             var topMovies = await _movieService.GetTopRatedMovie();

@@ -15,6 +15,6 @@ namespace tmc.Models
         public NowPlayingMovie NowPlayingMovie { get; set; }
         public UpcomingMovie UpcomingMovie { get; set; }
         public Movie[] Movies { get; set; }
-        public User User { get; set; }
+        public Profile Profile { get; set; }
     }
 }

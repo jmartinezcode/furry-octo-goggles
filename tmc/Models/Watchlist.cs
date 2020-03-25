@@ -11,9 +11,9 @@ namespace tmc.Models
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("UserId")]
-        public int UserId { get; set; }
-        public User User { get; set; }
-        public Movie[] Movies { get; set; }
+        [ForeignKey("ProfileId")]
+        public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
+        
     }
 }
