@@ -36,7 +36,7 @@ namespace tmc.Controllers
             viewModel.UpcomingMovie = upcomingMovies;
 
             return View(viewModel);
-        }
+        }        
 
         public IActionResult Privacy()
         {

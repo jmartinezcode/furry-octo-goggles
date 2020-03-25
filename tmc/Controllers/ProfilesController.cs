@@ -8,6 +8,8 @@ using tmc.Models;
 using tmc.Data;
 using tmc.Contracts;
 using System.Security.Claims;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace tmc.Controllers
 {
@@ -15,6 +17,9 @@ namespace tmc.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMovieServices _movieService;
+        string base_search_url = "https://api.themoviedb.org/3/search/movie?api_key=";
+        string end_search_url = "&language=en-US&page=1&include_adult=false&query=";
+        
         public ProfilesController(ApplicationDbContext context, IMovieServices services)
         {
             _context = context;
@@ -47,7 +52,21 @@ namespace tmc.Controllers
         }
         public async Task<IActionResult> Search(string query)
         {
-            return View();
+            var viewModel = new MovieViewModel();
+            var searchMovies = await SearchMovie(query);
+            viewModel.SearchMovie = searchMovies;
+            return View(viewModel);
+        }
+        public async Task<SearchMovie> SearchMovie(string query)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(base_search_url + API_KEYS.TheMovieDbAPI + end_search_url + query);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<SearchMovie>(json);
+            }
+            return null;
         }
 
         // GET: Users/Details/5

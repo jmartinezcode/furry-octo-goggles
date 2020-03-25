@@ -14,6 +14,7 @@ namespace tmc.Models
         public TopRatedMovie TopRatedMovie { get; set; }
         public NowPlayingMovie NowPlayingMovie { get; set; }
         public UpcomingMovie UpcomingMovie { get; set; }
+        public SearchMovie SearchMovie { get; set; }
         public Movie[] Movies { get; set; }
         public Profile Profile { get; set; }
     }

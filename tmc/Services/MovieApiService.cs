@@ -14,6 +14,9 @@ namespace tmc.Services
     {
         string base_url = "https://api.themoviedb.org/3/movie/";
         string end_url = "&language=en-US&page=1";
+        string base_search_url = "https://api.themoviedb.org/3/search/movie?api_key=";
+        string end_search_url = "&language=en-US&page=1&include_adult=false&query=";
+
         public MovieService()
         {
             
@@ -59,6 +62,17 @@ namespace tmc.Services
             {
                 var json = response.Content.ReadAsStringAsync().Result;
                 return JsonConvert.DeserializeObject<UpcomingMovie>(json);
+            }
+            return null;
+        }
+        public async Task<SearchMovie> SearchMovie(string query)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(base_search_url + API_KEYS.TheMovieDbAPI + end_search_url + query);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<SearchMovie>(json);
             }
             return null;
         }

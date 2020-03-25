@@ -99,6 +99,13 @@ namespace tmc.Models
         public Dates dates { get; set; }
         public int total_pages { get; set; }
     }
+    public class SearchMovie
+    {
+        public int page { get; set; }
+        public int total_results { get; set; }
+        public int total_pages { get; set; }
+        public Movie[] results { get; set; }
+    }
 
     public class Dates
     {
