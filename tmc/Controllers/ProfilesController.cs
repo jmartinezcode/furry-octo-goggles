@@ -16,9 +16,7 @@ namespace tmc.Controllers
     public class ProfilesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMovieServices _movieService;
-        string base_search_url = "https://api.themoviedb.org/3/search/movie?api_key=";
-        string end_search_url = "&language=en-US&page=1&include_adult=false&query=";
+        private readonly IMovieServices _movieService;        
         
         public ProfilesController(ApplicationDbContext context, IMovieServices services)
         {
@@ -60,6 +58,8 @@ namespace tmc.Controllers
         public async Task<SearchMovie> SearchMovie(string query)
         {
             var client = new HttpClient();
+            var base_search_url = "https://api.themoviedb.org/3/search/movie?api_key=";
+            var end_search_url = "&language=en-US&page=1&include_adult=false&query=";
             var response = await client.GetAsync(base_search_url + API_KEYS.TheMovieDbAPI + end_search_url + query);
             if (response.IsSuccessStatusCode)
             {
@@ -70,9 +70,25 @@ namespace tmc.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            var viewModel = new MovieViewModel();
+            var movie = await GetMovieDetails(id);
+            viewModel.Movie = movie;
+            return View(viewModel);
+        }
+
+        public async Task<Movie> GetMovieDetails(int? id)
+        {
+            var client = new HttpClient();
+            var base_details_url = "https://api.themoviedb.org/3/movie/";
+            var response = await client.GetAsync(base_details_url + id + "?api_key=" + API_KEYS.TheMovieDbAPI);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<Movie>(json);
+            }
+            return null;
         }
 
         // GET: Users/Create
