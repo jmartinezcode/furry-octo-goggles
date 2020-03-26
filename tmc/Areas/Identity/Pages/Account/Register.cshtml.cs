@@ -24,25 +24,25 @@ namespace tmc.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        //private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            IEmailSender emailSender)
+            //RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _roleManager = roleManager;
+            //_roleManager = roleManager;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
-        public SelectList Roles { get; set; }
+        //public SelectList Roles { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -65,16 +65,16 @@ namespace tmc.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            [Required]
-            public string Role { get; set; }
+            //[Required]
+            //public string Role { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            var roles = _roleManager.Roles;
-            Roles = new SelectList(roles, "Name", "Name");
+            //var roles = _roleManager.Roles;
+            //Roles = new SelectList(roles, "Name", "Name");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -87,10 +87,10 @@ namespace tmc.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    if (await _roleManager.RoleExistsAsync(Input.Role))
-                    {
-                        await _userManager.AddToRoleAsync(user, Input.Role);
-                    }
+                    //if (await _roleManager.RoleExistsAsync(Input.Role))
+                    //{
+                    //    await _userManager.AddToRoleAsync(user, Input.Role);
+                    //}
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
