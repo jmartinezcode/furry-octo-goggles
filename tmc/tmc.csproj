@@ -18,6 +18,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Views\Profiles\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

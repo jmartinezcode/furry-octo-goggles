@@ -4,148 +4,160 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-<h4>Upcoming</h4>
-<div class="movie-container" id="upcoming">
-    <div class="movie-section clearfix">
-        <ul id="movies">
-            <div class="list-row">
-                @foreach (var movie in Model.UpcomingMovie.results)
-                {
-                    <a class="movie" href="@movie.id">
-                        <div class="movie-img">
-                            @if (movie.poster_path == null)
-                            {
-                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
-                            }
-                            else
-                            {
-                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-                                <img class="movie-img" alt="img" src="@img_path" />
-                            }
-                        </div>
-                        <div class="img-overlay">
-                            <div class="movie-text-container">
-                                <h5 class="movie-text-title">
-                                    @movie.title
-                                </h5>
-                                <div>
-                                    <p class="movie-description">@movie.overview</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                }
+@{var banner_url = "https://image.tmdb.org/t/p/w1280" + Model.PopularMovie.results[0].backdrop_path;
+    <div class="banner-image" style='background: url(@banner_url); height: 500px; background-size: cover; background-position: center; width: 100%; position: relative; '>
+        <div>
+            <div class="banner-image-text" style="position: absolute; max-width: 500px; bottom: 2rem; margin-left: 2rem; color: white;">
+                <h4>@Model.PopularMovie.results[0].title</h4>
+                <p>@Model.PopularMovie.results[0].overview</p>
             </div>
-        </ul>
+        </div>
     </div>
-</div>
-
-<h4>Popular</h4>
-<div class="movie-container" id="popular">
-    <div class="movie-section clearfix">
-        <ul id="movies">
-            <div class="list-row">
-                @foreach (var movie in Model.PopularMovie.results)
-                {
-                    <a class="movie" href="@movie.id">
-                        <div class="movie-img">
-                            @if (movie.poster_path == null)
-                            {
-                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
-                            }
-                            else
-                            {
-                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-                                <img class="movie-img" alt="img" src="@img_path" />
-                            }
-                        </div>
-                        <div class="img-overlay">
-                            <div class="movie-text-container">
-                                <h5 class="movie-text-title">
-                                    @movie.title
-                                </h5>
-                                <div>
-                                    <p class="movie-description">@movie.overview</p>
+}
+<br/>
+<div class="container">
+    <h4>Upcoming</h4>
+    <div class="movie-container" id="upcoming">
+        <div class="movie-section clearfix">
+            <ul id="movies">
+                <div class="list-row">
+                    @foreach (var movie in Model.UpcomingMovie.results)
+                    {
+                        <a class="movie" href="@movie.id">
+                            <div class="movie-img">
+                                @if (movie.poster_path == null)
+                                {
+                                    <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                                }
+                                else
+                                {
+                                    var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                    <img class="movie-img" alt="img" src="@img_path" />
+                                }
+                            </div>
+                            <div class="img-overlay">
+                                <div class="movie-text-container">
+                                    <h5 class="movie-text-title">
+                                        @movie.title
+                                    </h5>
+                                    <div>
+                                        <p class="movie-description">@movie.overview</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                }
-            </div>
-        </ul>
+                        </a>
+                    }
+                </div>
+            </ul>
+        </div>
     </div>
-</div>
 
-<h4>Top Rated</h4>
-<div class="movie-container" id="top-rated">
-    <div class="movie-section clearfix">
-        <ul id="movies">
-            <div class="list-row">
-                @foreach (var movie in Model.TopRatedMovie.results)
-                {
-                    <a class="movie" href="@movie.id">
-                        <div class="movie-img">
-                            @if (movie.poster_path == null)
-                            {
-                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
-                            }
-                            else
-                            {
-                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-                                <img class="movie-img" alt="img" src="@img_path" />
-                            }
-                        </div>
-                        <div class="img-overlay">
-                            <div class="movie-text-container">
-                                <h5 class="movie-text-title">
-                                    @movie.title
-                                </h5>
-                                <div>
-                                    <p class="movie-description">@movie.overview</p>
+    <h4>Popular</h4>
+    <div class="movie-container" id="popular">
+        <div class="movie-section clearfix">
+            <ul id="movies">
+                <div class="list-row">
+                    @foreach (var movie in Model.PopularMovie.results)
+                    {
+                        <a class="movie" href="@movie.id">
+                            <div class="movie-img">
+                                @if (movie.poster_path == null)
+                                {
+                                    <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                                }
+                                else
+                                {
+                                    var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                    <img class="movie-img" alt="img" src="@img_path" />
+                                }
+                            </div>
+                            <div class="img-overlay">
+                                <div class="movie-text-container">
+                                    <h5 class="movie-text-title">
+                                        @movie.title
+                                    </h5>
+                                    <div>
+                                        <p class="movie-description">@movie.overview</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                }
-            </div>
-        </ul>
+                        </a>
+                    }
+                </div>
+            </ul>
+        </div>
     </div>
-</div>
 
-<h4>Now Playing</h4>
-<div class="movie-container" id="now-playing">
-    <div class="movie-section clearfix">
-        <ul id="movies">
-            <div class="list-row">
-                @foreach (var movie in Model.NowPlayingMovie.results)
-                {
-                    <a class="movie" href="@movie.id">
-                        <div class="movie-img">
-                            @if (movie.poster_path == null)
-                            {
-                                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
-                            }
-                            else
-                            {
-                                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-                                <img class="movie-img" alt="img" src="@img_path" />
-                            }
-                        </div>
-                        <div class="img-overlay">
-                            <div class="movie-text-container">
-                                <h5 class="movie-text-title">
-                                    @movie.title
-                                </h5>
-                                <div>
-                                    <p class="movie-description">@movie.overview</p>
+    <h4>Top Rated</h4>
+    <div class="movie-container" id="top-rated">
+        <div class="movie-section clearfix">
+            <ul id="movies">
+                <div class="list-row">
+                    @foreach (var movie in Model.TopRatedMovie.results)
+                    {
+                        <a class="movie" href="@movie.id">
+                            <div class="movie-img">
+                                @if (movie.poster_path == null)
+                                {
+                                    <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                                }
+                                else
+                                {
+                                    var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                    <img class="movie-img" alt="img" src="@img_path" />
+                                }
+                            </div>
+                            <div class="img-overlay">
+                                <div class="movie-text-container">
+                                    <h5 class="movie-text-title">
+                                        @movie.title
+                                    </h5>
+                                    <div>
+                                        <p class="movie-description">@movie.overview</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                }
-            </div>
-        </ul>
+                        </a>
+                    }
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <h4>Now Playing</h4>
+    <div class="movie-container" id="now-playing">
+        <div class="movie-section clearfix">
+            <ul id="movies">
+                <div class="list-row">
+                    @foreach (var movie in Model.NowPlayingMovie.results)
+                    {
+                        <a class="movie" href="@movie.id">
+                            <div class="movie-img">
+                                @if (movie.poster_path == null)
+                                {
+                                    <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+                                }
+                                else
+                                {
+                                    var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                                    <img class="movie-img" alt="img" src="@img_path" />
+                                }
+                            </div>
+                            <div class="img-overlay">
+                                <div class="movie-text-container">
+                                    <h5 class="movie-text-title">
+                                        @movie.title
+                                    </h5>
+                                    <div>
+                                        <p class="movie-description">@movie.overview</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </ul>
+        </div>
     </div>
 </div>
 

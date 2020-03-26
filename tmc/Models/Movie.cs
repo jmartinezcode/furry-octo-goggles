@@ -109,6 +109,8 @@ namespace tmc.Models
 
     public class Dates
     {
+        [Key]
+        public int id { get; set; }
         public string maximum { get; set; }
         public string minimum { get; set; }
     }    
