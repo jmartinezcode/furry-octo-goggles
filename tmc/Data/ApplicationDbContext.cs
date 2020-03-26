@@ -15,7 +15,7 @@ namespace tmc.Data
         {
         }
 
-        public DbSet<User> SiteUsers { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Watchlist> Watchlists { get; set; }
         public DbSet<MovieRating> MovieRatings { get; set; }

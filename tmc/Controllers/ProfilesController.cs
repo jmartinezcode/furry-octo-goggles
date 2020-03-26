@@ -29,7 +29,7 @@ namespace tmc.Controllers
             var viewModel = new MovieViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var user = _context.SiteUsers.FirstOrDefault(u => u.UserId == userId);
+            var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
             if (user is null)
             {
                 return RedirectToAction(nameof(Create));
