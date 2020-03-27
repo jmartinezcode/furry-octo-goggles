@@ -1,0 +1,39 @@
+﻿@model tmc.Models.MovieViewModel
+
+@{
+    ViewData["Title"] = "Movie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{var banner_url = "https://image.tmdb.org/t/p/w1280" + Model.Movie.backdrop_path;
+    <div class="w-100 h-100 position-fixed fixed-top" style='background: linear-gradient(
+                     rgba(0,0,0, .5), 
+                     rgba(0,0,0, .5)), url(@banner_url); background-size: cover; z-index: -1'>        
+    </div>
+}
+
+<div class="d-flex flex-column container">
+    <div class="movie-details">
+        @{var poster_url = "https://image.tmdb.org/t/p/w300" + Model.Movie.poster_path;
+            <img src="@poster_url" alt="@Model.Movie.title" style="grid-area: poster"/>
+        }
+        <div class="d-flex flex-column justify-content-between p-3 align-items-start">
+            <h4 class="text-warning">@Model.Movie.title</h4>
+            <h5 style="margin-bottom:12px">@Model.Movie.tagline</h5>
+            <div class="movie-watchlist">
+                <div class="movie-rating">@Model.Movie.vote_average</div>
+                <button type="button" class="btn btn-success">
+                    <i class="far fa-bookmark"></i>
+                    Add to Watchlist
+                </button>
+            </div>
+            <p style="font-size:1.2em; font-weight: 300; margin-bottom: 20px">@Model.Movie.overview</p>
+        </div>
+    </div>
+
+    <div>
+
+        <a class="text-warning" asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+

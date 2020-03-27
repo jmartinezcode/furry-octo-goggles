@@ -23,7 +23,7 @@
                 <div class="list-row">
                     @foreach (var movie in Model.UpcomingMovie.results)
                     {
-                        <a class="movie" href="@movie.id">
+                        <a class="movie" asp-action="Details" asp-route-id="@movie.id">
                             <div class="movie-img">
                                 @if (movie.poster_path == null)
                                 {

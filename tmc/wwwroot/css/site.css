@@ -135,18 +135,29 @@ img{
     line-height: 1.3;
     margin: 0 0;
 }
-.banner-image {
-    /*background: linear-gradient(to bottom, rgba(0,0,0,0) 39%,rgba(0,0,0,0) 41%,rgba(0,0,0,0.65) 100%), #1c1c1c;*/
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
+.movie-details {
+    margin-top: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #c1c1c1;
     position: relative;
+    display: grid;
+    grid-template: "poster info"
+                   "poster stats";
+    justify-content: start;
+    grid-template-columns: 300px 1fr;
 }
-.banner-image-text {
+.movie-rating {
     position: absolute;
-    max-width: 500px;
-    bottom: 2rem;
-    margin-left: 2rem;
-    color: white;
+    top: 8px;
+    right: 8px;
+    margin: 4px;
+    background-color: transparent;
+    padding: 8px;
+    text-align: center;
+    display: inline-block;
+    z-index: 100;
+    width: 60px;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid #00ff21;
 }
