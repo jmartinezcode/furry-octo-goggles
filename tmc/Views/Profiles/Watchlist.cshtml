@@ -1,4 +1,4 @@
-﻿@model tmc.Models.Watchlist
+﻿@model tmc.Models.MovieViewModel
 
 @{
     ViewData["Title"] = "Watchlist";
@@ -7,19 +7,33 @@
 
 <h1>Watchlist</h1>
 
+@foreach (var movie in Model.Watchlist)
+{
+    <a class="movie" asp-action="Details" asp-route-id="@movie.id">
+        <div class="movie-img">
+            @if (movie.poster_path == null)
+            {
+                <img class="movie-img" alt="img" src="~/img/no-image.jpg" />
+            }
+            else
+            {
+                var img_path = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                <img class="movie-img" alt="img" src="@img_path" />
+            }
+        </div>
+        <div class="img-overlay">
+            <div class="movie-text-container">
+                <h5 class="movie-text-title">
+                    @movie.title
+                </h5>
+                <div>
+                    <p class="movie-description">@movie.overview</p>
+                </div>
+            </div>
+        </div>
+    </a>
+}
 <div>
-    <h4>Watchlist</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Profile)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Profile.FullName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+
     <a asp-action="Index">Back to List</a>
 </div>

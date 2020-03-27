@@ -68,6 +68,27 @@ namespace tmc.Controllers
             }
             return null;
         }
+        public async Task<IActionResult> RecommendMovie(int id)
+        {
+            var viewModel = new MovieViewModel();
+            var recommendMovies = await GetRecommendedMovie(id);
+            viewModel.RecommendedMovie = recommendMovies;
+            return View(viewModel);
+        }
+        public async Task<RecommendedMovie> GetRecommendedMovie(int id)
+        {
+            var client = new HttpClient();
+            var base_url = "https://api.themoviedb.org/3/movie/";
+            var middle_url = "/recommendations?api_key=";
+            var end_url = "&language=en-US&page=1";
+            var response = await client.GetAsync(base_url + id + middle_url + API_KEYS.TheMovieDbAPI + end_url);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<RecommendedMovie>(json);
+            }
+            return null;
+        }
         public IActionResult AddToWatchlist(int id)
         {
             var viewModel = new MovieViewModel();
@@ -80,14 +101,19 @@ namespace tmc.Controllers
             }
             viewModel.Profile = user;
             var watchlist = _context.Watchlists.FirstOrDefault(w => w.ProfileId == viewModel.Profile.Id);
+            if (watchlist is null)
+            {
+                watchlist = new Watchlist();
+            }
             viewModel.Watchlist = watchlist;
+            viewModel.MovieWatchlist = new MovieWatchlist();
             viewModel.MovieWatchlist.MovieId = id;
             viewModel.MovieWatchlist.WatchlistId = viewModel.Watchlist.Id;
 
-            _context.Add(viewModel);
+            //_context.Add(viewModel);
             _context.SaveChanges();
 
-            return View();
+            return RedirectToAction(nameof(Details));
         }
 
         public IActionResult RateMovie(int id, int score)
@@ -115,15 +141,16 @@ namespace tmc.Controllers
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             var viewModel = new MovieViewModel();
             var movie = await GetMovieDetails(id);
             viewModel.Movie = movie;
+            viewModel.RecommendedMovie = await GetRecommendedMovie(id);
             return View(viewModel);
         }
 
-        public async Task<Movie> GetMovieDetails(int? id)
+        public async Task<Movie> GetMovieDetails(int id)
         {
             var client = new HttpClient();
             var base_details_url = "https://api.themoviedb.org/3/movie/";
@@ -135,6 +162,7 @@ namespace tmc.Controllers
             }
             return null;
         }
+        
 
         // GET: Users/Create
         public ActionResult Create()

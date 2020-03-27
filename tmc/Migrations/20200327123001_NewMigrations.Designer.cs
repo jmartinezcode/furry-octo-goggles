@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tmc.Data;
 
-namespace tmc.Data.Migrations
+namespace tmc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200326153250_UserToProfile")]
-    partial class UserToProfile
+    [Migration("20200327123001_NewMigrations")]
+    partial class NewMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,10 +164,12 @@ namespace tmc.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,10 +206,12 @@ namespace tmc.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -306,6 +310,28 @@ namespace tmc.Data.Migrations
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("tmc.Models.MovieGenre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("MovieGenres");
+                });
+
             modelBuilder.Entity("tmc.Models.MovieRating", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +358,28 @@ namespace tmc.Data.Migrations
                     b.HasIndex("ProfileId");
 
                     b.ToTable("MovieRatings");
+                });
+
+            modelBuilder.Entity("tmc.Models.MovieWatchlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WatchlistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("WatchlistId");
+
+                    b.ToTable("MovieWatchlists");
                 });
 
             modelBuilder.Entity("tmc.Models.Production_Companies", b =>
@@ -506,6 +554,21 @@ namespace tmc.Data.Migrations
                         .HasForeignKey("Movieid");
                 });
 
+            modelBuilder.Entity("tmc.Models.MovieGenre", b =>
+                {
+                    b.HasOne("tmc.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("tmc.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("tmc.Models.MovieRating", b =>
                 {
                     b.HasOne("tmc.Models.Movie", "Movie")
@@ -517,6 +580,21 @@ namespace tmc.Data.Migrations
                     b.HasOne("tmc.Models.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("tmc.Models.MovieWatchlist", b =>
+                {
+                    b.HasOne("tmc.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("tmc.Models.Watchlist", "Watchlist")
+                        .WithMany()
+                        .HasForeignKey("WatchlistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

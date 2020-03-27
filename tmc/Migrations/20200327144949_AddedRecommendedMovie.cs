@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace tmc.Data.Migrations
+namespace tmc.Migrations
 {
-    public partial class ModifiedModel : Migration
+    public partial class AddedRecommendedMovie : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

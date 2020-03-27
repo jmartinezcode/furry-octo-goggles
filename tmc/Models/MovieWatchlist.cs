@@ -13,9 +13,7 @@ namespace tmc.Models
         public int Id { get; set; }
         [ForeignKey("WatchlistId")]
         public int WatchlistId { get; set; }
-        public Watchlist Watchlist { get; set; }
-        [ForeignKey("MovieId")]
-        public int MovieId { get; set; }
-        public Movie Movie { get; set; }
+        public Watchlist Watchlist { get; set; }        
+        public int MovieId { get; set; }        
     }
 }
