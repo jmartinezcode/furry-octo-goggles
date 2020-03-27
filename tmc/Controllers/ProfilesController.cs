@@ -68,6 +68,51 @@ namespace tmc.Controllers
             }
             return null;
         }
+        public IActionResult AddToWatchlist(int id)
+        {
+            var viewModel = new MovieViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            if (user is null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            viewModel.Profile = user;
+            var watchlist = _context.Watchlists.FirstOrDefault(w => w.ProfileId == viewModel.Profile.Id);
+            viewModel.Watchlist = watchlist;
+            viewModel.MovieWatchlist.MovieId = id;
+            viewModel.MovieWatchlist.WatchlistId = viewModel.Watchlist.Id;
+
+            _context.Add(viewModel);
+            _context.SaveChanges();
+
+            return View();
+        }
+
+        public IActionResult RateMovie(int id, int score)
+        {
+            var viewModel = new MovieViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            if (user is null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            viewModel.Profile = user;
+            var rating = _context.MovieRatings.FirstOrDefault(r => r.ProfileId == viewModel.Profile.Id);
+
+            viewModel.MovieRating = rating;
+            viewModel.MovieRating.MovieId = id;
+            viewModel.MovieRating.Rating = score;
+            viewModel.MovieRating.RatingDate = DateTime.Now;
+
+            _context.Add(viewModel);
+            _context.SaveChanges();
+
+            return View();
+        }
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)

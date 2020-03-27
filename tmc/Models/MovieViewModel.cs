@@ -17,5 +17,6 @@ namespace tmc.Models
         public SearchMovie SearchMovie { get; set; }
         public Movie[] Movies { get; set; }
         public Profile Profile { get; set; }
+        public MovieWatchlist MovieWatchlist { get; set; }
     }
 }
