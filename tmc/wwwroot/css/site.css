@@ -166,7 +166,9 @@ img{
 }
 .movie-text-container {
     position: absolute;
-    max-width: 280px;
+    max-width: 260px;
+    max-height: 80px;
+    text-overflow: ellipsis;
     bottom: .5rem;
     margin-left: .5rem;
     color: white;

@@ -89,6 +89,12 @@ namespace tmc.Controllers
             }
             return null;
         }
+        //public IActionResult AddToWatchlist()
+        //{
+        //    return RedirectToAction(nameof(Details));
+        //}
+
+        [HttpPost]
         public IActionResult AddToWatchlist(int id)
         {
             var viewModel = new MovieViewModel();
@@ -110,10 +116,10 @@ namespace tmc.Controllers
             viewModel.MovieWatchlist.MovieId = id;
             viewModel.MovieWatchlist.WatchlistId = viewModel.Watchlist.Id;
 
-            //_context.Add(viewModel);
+            _context.Add(viewModel);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Details));
+            return View(viewModel);
         }
 
         public IActionResult RateMovie(int id, int score)
@@ -165,7 +171,7 @@ namespace tmc.Controllers
         
 
         // GET: Users/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }

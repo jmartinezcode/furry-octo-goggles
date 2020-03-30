@@ -24,7 +24,7 @@
             <h5 style="margin-bottom:12px">@Model.Movie.tagline</h5>
             <div class="movie-watchlist">
                 <div class="movie-rating">@Model.Movie.vote_average</div>
-                <a class="btn btn-success" @*asp-action="AddToWatchlist" asp-route-id="@Model.Movie.id"*@>
+                <a class="btn btn-success" asp-action="AddToWatchlist" asp-route-id="@Model.Movie.id">
                     <i class="far fa-bookmark"></i>
                     Add to Watchlist
                 </a>
