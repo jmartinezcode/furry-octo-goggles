@@ -94,8 +94,8 @@ namespace tmc.Controllers
         //    return RedirectToAction(nameof(Details));
         //}
 
-        [HttpPost]
-        public IActionResult AddToWatchlist(int id)
+        
+        public async Task<IActionResult> AddToWatchlist(int id)
         {
             var viewModel = new MovieViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -110,16 +110,19 @@ namespace tmc.Controllers
             if (watchlist is null)
             {
                 watchlist = new Watchlist();
+                _context.Add(watchlist);
+                _context.SaveChanges();
             }
             viewModel.Watchlist = watchlist;
             viewModel.MovieWatchlist = new MovieWatchlist();
-            viewModel.MovieWatchlist.MovieId = id;
+            var movie = Details(id);            
+            viewModel.MovieWatchlist.MovieId = id;                       
             viewModel.MovieWatchlist.WatchlistId = viewModel.Watchlist.Id;
 
-            _context.Add(viewModel);
+            //_context.Add(viewModel);
             _context.SaveChanges();
 
-            return View(viewModel);
+            return RedirectToAction(nameof(Details));
         }
 
         public IActionResult RateMovie(int id, int score)
