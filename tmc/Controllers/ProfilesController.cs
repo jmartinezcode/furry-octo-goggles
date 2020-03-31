@@ -95,56 +95,46 @@ namespace tmc.Controllers
         //}
 
         
-        public async Task<IActionResult> AddToWatchlist(int id)
+        public async Task<IActionResult> AddToWatchlist(int movieId)
         {
-            var viewModel = new MovieViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
-            if (user is null)
+            var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            if (profile is null)
             {
                 return RedirectToAction(nameof(Create));
             }
-            viewModel.Profile = user;
-            var watchlist = _context.Watchlists.FirstOrDefault(w => w.ProfileId == viewModel.Profile.Id);
-            if (watchlist is null)
-            {
-                watchlist = new Watchlist();
-                _context.Add(watchlist);
-                _context.SaveChanges();
-            }
-            viewModel.Watchlist = watchlist;
-            viewModel.MovieWatchlist = new MovieWatchlist();
-            var movie = Details(id);            
-            viewModel.MovieWatchlist.MovieId = id;                       
-            viewModel.MovieWatchlist.WatchlistId = viewModel.Watchlist.Id;
-
-            //_context.Add(viewModel);
+            Watchlist watchlist = new Watchlist();
+            watchlist.ProfileId = profile.Id;
+            watchlist.MovieId = movieId;
+            _context.Watchlists.Add(watchlist);
             _context.SaveChanges();
-
-            return RedirectToAction(nameof(Details));
+            return RedirectToAction(nameof(Details), new { id = movieId });
         }
 
-        public IActionResult RateMovie(int id, int score)
-        {
-            var viewModel = new MovieViewModel();
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        public IActionResult RateMovie(MovieViewModel viewModel)
+        {            
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
-            if (user is null)
-            {
-                return RedirectToAction(nameof(Create));
-            }
-            viewModel.Profile = user;
-            var rating = _context.MovieRatings.FirstOrDefault(r => r.ProfileId == viewModel.Profile.Id);
+            //var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            //if (user is null)
+            //{
+            //    return RedirectToAction(nameof(Create));
+            //}
+            //viewModel.Profile = user;
+            //var rating = _context.MovieRatings.FirstOrDefault(r => r.ProfileId == viewModel.Profile.Id);
+            //if (rating is null)
+            //{
+            //    rating = new MovieRating();
+            //    //_context.Add()
+            //}
 
-            viewModel.MovieRating = rating;
-            viewModel.MovieRating.MovieId = id;
-            viewModel.MovieRating.Rating = score;
-            viewModel.MovieRating.RatingDate = DateTime.Now;
+            //viewModel.MovieRating = rating;
+            //viewModel.MovieRating.MovieId = id;
+            //viewModel.MovieRating.Rating = score;
+            //viewModel.MovieRating.RatingDate = DateTime.Now;
 
-            _context.Add(viewModel);
-            _context.SaveChanges();
+            //_context.Add(viewModel);
+            //_context.SaveChanges();
 
             return View();
         }

@@ -24,10 +24,40 @@
             <h5 style="margin-bottom:12px">@Model.Movie.tagline</h5>
             <div class="movie-watchlist">
                 <div class="movie-rating">@Model.Movie.vote_average</div>
-                <a class="btn btn-success" asp-action="AddToWatchlist" asp-route-id="@Model.Movie.id">
+                <a class="btn btn-success" asp-action="AddToWatchlist" asp-route-movieId="@Model.Movie.id">
                     <i class="far fa-bookmark"></i>
                     Add to Watchlist
                 </a>
+                <div id="half-stars" >
+                    <form asp-action="RateMovie">
+                        <input hidden asp-for="@Model.Movie.id"/>
+                        <div class="rating-group" style="display: inline-flex">
+                            <input class="rating__input rating__input--none" checked id="rating-0" value="0" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="0 stars" class="rating__label" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                            <label aria-label="0.5 stars" class="rating__label rating__label--half" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star-half"></i></label>
+                            <input class="rating__input" id="rating-05" value="1" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="1 star" class="rating__label" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star"></i></label>
+                            <input class="rating__input" id="rating-10" value="2" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="1.5 stars" class="rating__label rating__label--half" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star-half"></i></label>
+                            <input class="rating__input" id="rating-15" value="3" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="2 stars" class="rating__label" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star"></i></label>
+                            <input class="rating__input" id="rating-20" value="4" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="2.5 stars" class="rating__label rating__label--half" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star-half"></i></label>
+                            <input class="rating__input" id="rating-25" value="5" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="3 stars" class="rating__label" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star"></i></label>
+                            <input class="rating__input" id="rating-30" value="6" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="3.5 stars" class="rating__label rating__label--half" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star-half"></i></label>
+                            <input class="rating__input" id="rating-35" value="7" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="4 stars" class="rating__label" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star"></i></label>
+                            <input class="rating__input" id="rating-40" value="8" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="4.5 stars" class="rating__label rating__label--half" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star-half"></i></label>
+                            <input class="rating__input" id="rating-45" value="9" type="radio" asp-for="MovieRating.Rating">
+                            <label aria-label="5 stars" class="rating__label" asp-for="MovieRating.Rating"><i class="rating__icon rating__icon--star far fa-star"></i></label>
+                            <input class="rating__input" id="rating-50" value="10" type="radio" asp-for="MovieRating.Rating">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
             <p style="font-size:1.2em; font-weight: 300; margin-bottom: 20px">@Model.Movie.overview</p>
         </div>

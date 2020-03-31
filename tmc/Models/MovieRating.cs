@@ -15,9 +15,7 @@ namespace tmc.Models
         [ForeignKey("ProfileId")]
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
-        [ForeignKey("MovieId")]
-        public int MovieId { get; set; }
-        public Movie Movie { get; set; }
+        public int MovieId { get; set; }        
         public int Rating { get; set; }
         public DateTime RatingDate { get; set; }
     }

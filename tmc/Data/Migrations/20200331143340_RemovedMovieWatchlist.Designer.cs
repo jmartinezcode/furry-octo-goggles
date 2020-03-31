@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tmc.Data;
 
 namespace tmc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200331143340_RemovedMovieWatchlist")]
+    partial class RemovedMovieWatchlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,117 +221,6 @@ namespace tmc.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("tmc.Models.Genre", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Movieid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Movieid");
-
-                    b.ToTable("Genres");
-                });
-
-            modelBuilder.Entity("tmc.Models.Movie", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("adult")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("backdrop_path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("budget")
-                        .HasColumnType("int");
-
-                    b.Property<string>("homepage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("imdb_id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("original_language")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("original_title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("overview")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("popularity")
-                        .HasColumnType("real");
-
-                    b.Property<string>("poster_path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("release_date")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("revenue")
-                        .HasColumnType("int");
-
-                    b.Property<int>("runtime")
-                        .HasColumnType("int");
-
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("tagline")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("video")
-                        .HasColumnType("bit");
-
-                    b.Property<float>("vote_average")
-                        .HasColumnType("real");
-
-                    b.Property<int>("vote_count")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("tmc.Models.MovieGenre", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GenreId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MovieGenres");
-                });
-
             modelBuilder.Entity("tmc.Models.MovieRating", b =>
                 {
                     b.Property<int>("Id")
@@ -351,80 +242,9 @@ namespace tmc.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MovieId");
-
                     b.HasIndex("ProfileId");
 
                     b.ToTable("MovieRatings");
-                });
-
-            modelBuilder.Entity("tmc.Models.MovieWatchlist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WatchlistId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WatchlistId");
-
-                    b.ToTable("MovieWatchlists");
-                });
-
-            modelBuilder.Entity("tmc.Models.Production_Companies", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Movieid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("logo_path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("origin_country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Movieid");
-
-                    b.ToTable("Production_Companies");
-                });
-
-            modelBuilder.Entity("tmc.Models.Production_Countries", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Movieid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("iso_3166_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Movieid");
-
-                    b.ToTable("Production_Countries");
                 });
 
             modelBuilder.Entity("tmc.Models.Profile", b =>
@@ -452,35 +272,15 @@ namespace tmc.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("tmc.Models.Spoken_Languages", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Movieid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("iso_639_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Movieid");
-
-                    b.ToTable("Spoken_Languages");
-                });
-
             modelBuilder.Entity("tmc.Models.Watchlist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
@@ -543,36 +343,8 @@ namespace tmc.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("tmc.Models.Genre", b =>
-                {
-                    b.HasOne("tmc.Models.Movie", null)
-                        .WithMany("genres")
-                        .HasForeignKey("Movieid");
-                });
-
-            modelBuilder.Entity("tmc.Models.MovieGenre", b =>
-                {
-                    b.HasOne("tmc.Models.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("tmc.Models.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("tmc.Models.MovieRating", b =>
                 {
-                    b.HasOne("tmc.Models.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("tmc.Models.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
@@ -580,41 +352,11 @@ namespace tmc.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("tmc.Models.MovieWatchlist", b =>
-                {
-                    b.HasOne("tmc.Models.Watchlist", "Watchlist")
-                        .WithMany()
-                        .HasForeignKey("WatchlistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("tmc.Models.Production_Companies", b =>
-                {
-                    b.HasOne("tmc.Models.Movie", null)
-                        .WithMany("production_companies")
-                        .HasForeignKey("Movieid");
-                });
-
-            modelBuilder.Entity("tmc.Models.Production_Countries", b =>
-                {
-                    b.HasOne("tmc.Models.Movie", null)
-                        .WithMany("production_countries")
-                        .HasForeignKey("Movieid");
-                });
-
             modelBuilder.Entity("tmc.Models.Profile", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("tmc.Models.Spoken_Languages", b =>
-                {
-                    b.HasOne("tmc.Models.Movie", null)
-                        .WithMany("spoken_languages")
-                        .HasForeignKey("Movieid");
                 });
 
             modelBuilder.Entity("tmc.Models.Watchlist", b =>

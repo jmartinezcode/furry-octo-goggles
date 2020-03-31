@@ -15,12 +15,9 @@ namespace tmc.Data
         {
         }
 
-        public DbSet<Profile> Profiles { get; set; }
-        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Profile> Profiles { get; set; }        
         public DbSet<Watchlist> Watchlists { get; set; }
-        public DbSet<MovieRating> MovieRatings { get; set; }
-        public DbSet<Genre> Genres { get; set; }
-        public DbSet<MovieWatchlist> MovieWatchlists { get; set; }
-        public DbSet<MovieGenre> MovieGenres { get; set; }
+        public DbSet<MovieRating> MovieRatings { get; set; }           
+        
     }
 }
