@@ -89,13 +89,8 @@ namespace tmc.Controllers
             }
             return null;
         }
-        //public IActionResult AddToWatchlist()
-        //{
-        //    return RedirectToAction(nameof(Details));
-        //}
-
-        
-        public async Task<IActionResult> AddToWatchlist(int movieId)
+                
+        public IActionResult AddToWatchlist(int movieId)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
@@ -113,13 +108,27 @@ namespace tmc.Controllers
 
         public IActionResult RateMovie(MovieViewModel viewModel)
         {            
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);            
+            var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            if (profile is null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            var rating = _context.MovieRatings.FirstOrDefault(r => r.MovieId == viewModel.Movie.id);
+            if (rating is null)
+            {
+                rating = new MovieRating();
+            }
+            rating.ProfileId = profile.Id;
+            rating.MovieId = viewModel.Movie.id;
+            rating.Rating = viewModel.MovieRating.Rating;
+            rating.RatingDate = DateTime.Now;
 
-            //var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
-            //if (user is null)
-            //{
-            //    return RedirectToAction(nameof(Create));
-            //}
+            _context.MovieRatings.Add(rating);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Details), new { id = viewModel.Movie.id });
+
             //viewModel.Profile = user;
             //var rating = _context.MovieRatings.FirstOrDefault(r => r.ProfileId == viewModel.Profile.Id);
             //if (rating is null)
@@ -134,9 +143,7 @@ namespace tmc.Controllers
             //viewModel.MovieRating.RatingDate = DateTime.Now;
 
             //_context.Add(viewModel);
-            //_context.SaveChanges();
-
-            return View();
+            //_context.SaveChanges();            
         }
 
         // GET: Users/Details/5

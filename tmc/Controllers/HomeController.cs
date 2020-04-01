@@ -21,22 +21,9 @@ namespace tmc.Controllers
             _movieService = movieService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return RedirectToAction("Index", "Profiles");
-            //var viewModel = new MovieViewModel();
-
-            //var popularMovies = await _movieService.GetPopularMovie();
-            //var topMovies = await _movieService.GetTopRatedMovie();
-            //var nowPlayingMovies = await _movieService.GetNowPlayingMovie();
-            //var upcomingMovies = await _movieService.GetUpcomingMovie();
-
-            //viewModel.PopularMovie = popularMovies;
-            //viewModel.TopRatedMovie = topMovies;
-            //viewModel.NowPlayingMovie = nowPlayingMovies;
-            //viewModel.UpcomingMovie = upcomingMovies;
-
-            //return View(viewModel);
+            return RedirectToAction("Index", "Profiles");            
         }        
 
         public IActionResult Privacy()
