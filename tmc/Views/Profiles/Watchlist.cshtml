@@ -10,7 +10,7 @@
             @foreach (var movie in Model.Movies)
             {
                 <a asp-action="Details" asp-route-id="@movie.id">
-                    <div class="card mb-4 border-0" style="min-width: 180px; max-width:240px">
+                    <div class="card mb-4 border-0" style="min-width: 180px; max-width:198px">
                         @if (movie.poster_path == null)
                         {
                             <img class="card-img" alt="img" src="~/img/no-image.jpg" />

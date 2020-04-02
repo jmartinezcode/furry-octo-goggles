@@ -7,13 +7,15 @@
 @{var banner_url = "https://image.tmdb.org/t/p/w1280" + Model.PopularMovie.results[0].backdrop_path;
     <div class="banner-image" style='background: linear-gradient(
                      rgba(0,0,0, .5), 
-                     rgba(0,0,0, .5)), url(@banner_url); height: 500px; background-size: cover; background-position: center; width: 100%; position: relative; '>
-        <div>
-            <div class="banner-image-text" style="position: absolute; max-width: 500px; bottom: 2rem; margin-left: 2rem; color: white;">
-                <h4>@Model.PopularMovie.results[0].title</h4>
-                <p>@Model.PopularMovie.results[0].overview</p>
+                     rgba(0,0,0, .5)), url(@banner_url); height: 500px; background-size: cover; background-position: center; width: 100%; position: relative; margin-top:0px'>
+        <a asp-action="Details" asp-route-id="@Model.PopularMovie.results[0].id">
+            <div>
+                <div class="banner-image-text" style="position: absolute; max-width: 500px; bottom: 2rem; margin-left: 2rem; color: white;">
+                    <h4>@Model.PopularMovie.results[0].title</h4>
+                    <p>@Model.PopularMovie.results[0].overview</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 }
 <br />
