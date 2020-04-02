@@ -19,11 +19,17 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">     
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Profiles" asp-action="Watchlist">Watchlist</a>
                         </li>
-                        <input class="form-control col-4" type="text" placeholder="Movie title" />
+                        <form asp-controller="Profiles" asp-action="Search">
+                            <input class="form-control form-inline col-6" type="text" placeholder="Movie title" name="query"/>
+                            <a hidden class="btn btn-success" type="submit">
+                                <i class="fa fa-search"></i>
+                                Search
+                            </a>
+                        </form>
                     </ul>
                 </div>
             </div>

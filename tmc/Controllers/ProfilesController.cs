@@ -29,12 +29,12 @@ namespace tmc.Controllers
             var viewModel = new MovieViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var user = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
-            if (user is null)
+            var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            if (profile is null)
             {
                 return RedirectToAction(nameof(Create));
             }
-            viewModel.Profile = user;
+            viewModel.Profile = profile;
 
             var popularMovies = await _movieService.GetPopularMovie();
             var topMovies = await _movieService.GetTopRatedMovie();
@@ -90,7 +90,7 @@ namespace tmc.Controllers
             return null;
         }
                 
-        public IActionResult AddToWatchlist(int movieId)
+        public IActionResult AddToWatchlist(int id)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
@@ -100,10 +100,32 @@ namespace tmc.Controllers
             }
             Watchlist watchlist = new Watchlist();
             watchlist.ProfileId = profile.Id;
-            watchlist.MovieId = movieId;
+            watchlist.MovieId = id;
             _context.Watchlists.Add(watchlist);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Details), new { id = movieId });
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+        public IActionResult RemoveFromWatchlist(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            var movie = _context.Watchlists.FirstOrDefault(w => w.MovieId == id && w.ProfileId == profile.Id);
+            _context.Watchlists.Remove(movie);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+        public IActionResult DisplayWatchlist()
+        {
+            var viewModel = new MovieViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var profile = _context.Profiles.FirstOrDefault(p => p.UserId == userId);
+            if (profile is null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            viewModel.Profile = profile;
+            return View(viewModel);
         }
 
         public IActionResult RateMovie(MovieViewModel viewModel)
@@ -146,6 +168,8 @@ namespace tmc.Controllers
             }
             var rating = _context.MovieRatings.FirstOrDefault(r => r.MovieId == viewModel.Movie.id);
             viewModel.MovieRating = rating;
+            var watchlist = _context.Watchlists.FirstOrDefault(w => w.MovieId == id && w.ProfileId == profile.Id);
+            viewModel.Watchlist = watchlist;
 
             return View(viewModel);
         }
