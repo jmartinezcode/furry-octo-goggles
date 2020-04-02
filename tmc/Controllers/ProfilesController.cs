@@ -114,7 +114,7 @@ namespace tmc.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Details), new { id = id });
         }
-        public IActionResult DisplayWatchlist()
+        public async Task<IActionResult> Watchlist()
         {
             var viewModel = new MovieViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -125,6 +125,16 @@ namespace tmc.Controllers
                 return RedirectToAction(nameof(Create));
             }
             viewModel.Profile = profile;
+            var watchlist = _context.Watchlists.Where(w => w.ProfileId == profile.Id).ToList();
+            var movies = new List<Movie>();
+            
+            for (int i = 0; i < watchlist.Count; i++)
+            {
+                int id = watchlist[i].MovieId;                
+                movies.Add(await GetMovieDetails(id));
+            }
+
+            viewModel.Movies = movies;
             return View(viewModel);
         }
 

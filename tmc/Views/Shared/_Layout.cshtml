@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 ">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 navbar-dark">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tmc</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -23,8 +23,8 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Profiles" asp-action="Watchlist">Watchlist</a>
                         </li>
-                        <form asp-controller="Profiles" asp-action="Search">
-                            <input class="form-control form-inline col-6" type="text" placeholder="Movie title" name="query"/>
+                        <form class="form-inline" asp-controller="Profiles" asp-action="Search">
+                            <input class="form-control" type="text" placeholder="Movie title" name="query"/>
                             <a hidden class="btn btn-success" type="submit">
                                 <i class="fa fa-search"></i>
                                 Search
