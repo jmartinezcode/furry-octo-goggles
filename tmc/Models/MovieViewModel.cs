@@ -18,5 +18,6 @@ namespace tmc.Models
         public List<Movie> Movies { get; set; }
         public Profile Profile { get; set; }        
         public RecommendedMovie RecommendedMovie { get; set; }
+        public List<Movie> RatedMovies { get; set; }
     }
 }

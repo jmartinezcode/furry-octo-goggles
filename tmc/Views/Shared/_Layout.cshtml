@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - tmc</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />    
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tmc</a>
+                <a class="navbar-brand text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">tmc</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,10 +21,11 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Profiles" asp-action="Watchlist">Watchlist</a>
+                            <a class="nav-link text-uppercase" asp-controller="Profiles" asp-action="Watchlist"><i class="far fa-list-alt"></i> Profile</a>
                         </li>
-                        <form class="form-inline" asp-controller="Profiles" asp-action="Search">
-                            <input class="form-control" type="text" placeholder="Movie title" name="query"/>
+                        <form class="form-inline has-search" asp-controller="Profiles" asp-action="Search">
+                            <span class="fa fa-search form-control-feedback"></span>
+                            <input class="form-control" type="text" placeholder="Movie title" name="query" />
                             <a hidden class="btn btn-success" type="submit">
                                 <i class="fa fa-search"></i>
                                 Search
@@ -35,19 +36,24 @@
             </div>
         </nav>
     </header>
-    
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
 
     <footer class="footer text-muted">
         <div class="container">
-            &copy; 2020 - tmc 
+            &copy; 2020 - tmc
         </div>
     </footer>
+    <script>
+        $(document).ready(function () {
+            $('input-3-ltr-star-md').rating({});
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

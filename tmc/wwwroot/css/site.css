@@ -164,6 +164,14 @@ img{
     border-radius: 50%;
     border: 2px solid #00ff21;
 }
+.movie-stats {
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #c1c1c1;
+    font-size: 1em;
+    grid-area: stats;
+    align-self: end;
+}
 .movie-text-container {
     position: absolute;
     max-width: 260px;
@@ -239,4 +247,20 @@ img{
  /*make none icon red on hover*/ 
  .rating__input--none:hover + .rating__label .rating__icon--none {
     color: red;
-} 
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}

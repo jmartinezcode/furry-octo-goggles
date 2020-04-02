@@ -125,6 +125,16 @@ namespace tmc.Controllers
                 return RedirectToAction(nameof(Create));
             }
             viewModel.Profile = profile;
+
+            var ratings = _context.MovieRatings.Where(r => r.ProfileId == profile.Id && r.Rating > 0).ToList();
+            var ratedMovies = new List<Movie>();
+            for (int i = 0; i < ratings.Count; i++)
+            {
+                int id = ratings[i].MovieId;
+                ratedMovies.Add(await GetMovieDetails(id));
+            }
+            viewModel.RatedMovies = ratedMovies;
+
             var watchlist = _context.Watchlists.Where(w => w.ProfileId == profile.Id).ToList();
             var movies = new List<Movie>();
             

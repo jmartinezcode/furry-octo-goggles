@@ -5,7 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
     <div class="container">
-        <h4>Watchlist</h4>
+        <h4>My Ratings</h4>
+        <div class="card-deck">
+            @foreach (var movie in Model.RatedMovies)
+            {
+                <a asp-action="Details" asp-route-id="@movie.id">
+                    <div class="card mb-4 border-0" style="min-width: 180px; max-width:198px">
+                        @if (movie.poster_path == null)
+                        {
+                            <img class="card-img" alt="img" src="~/img/no-image.jpg" />
+                        }
+                        else
+                        {
+                            var image_path = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
+                            <img class="card-img" src="@image_path" alt="poster image" />
+                        }
+                        
+                    </div>
+                </a>
+
+            }
+        </div>
+        <h4>My Watchlist</h4>
         <div class="card-deck">
             @foreach (var movie in Model.Movies)
             {
@@ -28,9 +49,9 @@
                         </div>
                     </div>
                 </a>
-                
+
             }
-        </div>        
+        </div>
         <div>
 
             <a class="text-warning" asp-action="Index"><strong>Back to List</strong></a>

@@ -67,13 +67,13 @@
                             <input class="rating__input" id="rating-50" value="10" type="radio" asp-for="MovieRating.Rating">
                             <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
-                    </form>
+                    </form>                    
                 </div>
             </div>
             <p style="font-size:1.2em; font-weight: 300; margin-bottom: 20px">@Model.Movie.overview</p>
         </div>
     </div>
-    <h4 class="text-warning">Recommendations</h4>
+    <h4 class="text-warning text-uppercase">Recommendations</h4>
     <div class="card-deck">
         @foreach (var movie in Model.RecommendedMovie.results)
         {
